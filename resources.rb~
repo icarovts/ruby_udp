@@ -1,0 +1,24 @@
+require '../resources'
+
+# a key shorter than 32 bytes will be padded out with zeroes 
+
+s = UDPSocket.new
+s.bind(nil, 1234)
+
+def gost(key, word)
+	gost = Crypt::Gost.new(key)
+	puts encryptedBlock = gost.encrypt_block(word)
+	puts decryptedBlock = gost.decrypt_block(encryptedBlock)
+end
+
+def idea(key, word)
+	idea = Crypt::IDEA.new(key)
+	puts encryptedBlock = idea.encrypt_block(word)
+	puts decryptedBlock = idea.decrypt_block(encryptedBlock)
+end
+
+5.times do
+  msg, sender = s.recvfrom(100000000)
+  msg = JSON.parse msg
+  send(msg['method'], msg['key'], msg['word'])
+end

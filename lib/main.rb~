@@ -1,0 +1,16 @@
+require 'client'
+require 'server'
+
+port = 7773
+host = 'localhost'
+
+puts "INICIANDO SERVER..."
+server = Server.new host, port
+server.run
+
+puts "--------------------------------------------"
+
+puts "INICIANDO CLIENT..."
+client = Client.new host, port
+puts msg_encriptada = client.encrypt :word => 'testando', :key => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', :method => 'gost'
+puts client.decrypt :word => msg_encriptada, :key => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', :method => 'gost'

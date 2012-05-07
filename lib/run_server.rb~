@@ -1,0 +1,9 @@
+require 'client'
+require 'server'
+
+port = 9999
+host = 'localhost'
+
+puts "INICIANDO SERVER..."
+server = Server.new host, port
+server.run
